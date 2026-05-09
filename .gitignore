@@ -49,3 +49,7 @@ next-env.d.ts
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# AI agent instruction files (evaluator-facing repo; AI usage report goes in README)
+AGENTS.md
+CLAUDE.md
