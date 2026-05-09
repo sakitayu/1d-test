@@ -53,3 +53,6 @@ next-env.d.ts
 # AI agent instruction files (evaluator-facing repo; AI usage report goes in README)
 AGENTS.md
 CLAUDE.md
+
+# AI session handoff artifacts (design doc lives locally; durable content goes in README)
+/docs/
