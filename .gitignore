@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# vscode (commit only shared formatter settings)
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
