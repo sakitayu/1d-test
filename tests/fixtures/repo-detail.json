@@ -1,0 +1,18 @@
+{
+  "id": 10270250,
+  "name": "react",
+  "full_name": "facebook/react",
+  "owner": {
+    "login": "facebook",
+    "avatar_url": "https://avatars.githubusercontent.com/u/69631?v=4"
+  },
+  "description": "The library for web and native user interfaces.",
+  "language": "JavaScript",
+  "stargazers_count": 244917,
+  "watchers_count": 244917,
+  "forks_count": 51011,
+  "open_issues_count": 1288,
+  "subscribers_count": 6629,
+  "html_url": "https://github.com/facebook/react",
+  "updated_at": "2026-05-10T09:11:07Z"
+}

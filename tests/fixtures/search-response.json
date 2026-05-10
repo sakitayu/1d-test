@@ -1,0 +1,57 @@
+{
+  "total_count": 6892970,
+  "incomplete_results": false,
+  "items": [
+    {
+      "id": 28457823,
+      "name": "freeCodeCamp",
+      "full_name": "freeCodeCamp/freeCodeCamp",
+      "owner": {
+        "login": "freeCodeCamp",
+        "avatar_url": "https://avatars.githubusercontent.com/u/9892522?v=4"
+      },
+      "description": "freeCodeCamp.org's open-source codebase and curriculum. Learn math, programming, and computer science for free.",
+      "language": "TypeScript",
+      "stargazers_count": 444426,
+      "watchers_count": 444426,
+      "forks_count": 44499,
+      "open_issues_count": 183,
+      "html_url": "https://github.com/freeCodeCamp/freeCodeCamp",
+      "updated_at": "2026-05-10T11:09:13Z"
+    },
+    {
+      "id": 10270250,
+      "name": "react",
+      "full_name": "facebook/react",
+      "owner": {
+        "login": "facebook",
+        "avatar_url": "https://avatars.githubusercontent.com/u/69631?v=4"
+      },
+      "description": "The library for web and native user interfaces.",
+      "language": "JavaScript",
+      "stargazers_count": 244917,
+      "watchers_count": 244917,
+      "forks_count": 51011,
+      "open_issues_count": 1288,
+      "html_url": "https://github.com/facebook/react",
+      "updated_at": "2026-05-10T09:11:07Z"
+    },
+    {
+      "id": 70107786,
+      "name": "next.js",
+      "full_name": "vercel/next.js",
+      "owner": {
+        "login": "vercel",
+        "avatar_url": "https://avatars.githubusercontent.com/u/14985020?v=4"
+      },
+      "description": "The React Framework",
+      "language": "JavaScript",
+      "stargazers_count": 139350,
+      "watchers_count": 139350,
+      "forks_count": 31042,
+      "open_issues_count": 3909,
+      "html_url": "https://github.com/vercel/next.js",
+      "updated_at": "2026-05-10T10:03:30Z"
+    }
+  ]
+}
