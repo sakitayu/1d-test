@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import searchFixture from '../tests/fixtures/search-response.json';
 import repoFixture from '../tests/fixtures/repo-detail.json';
+import searchFixture from '../tests/fixtures/search-response.json';
 import {
   GitHubApiError,
+  getRepository,
   NotFoundError,
   RateLimitError,
-  getRepository,
   searchRepositories,
 } from './github';
 
@@ -63,7 +63,9 @@ describe('searchRepositories', () => {
   });
 
   it('throws RateLimitError on 403 + x-ratelimit-remaining: 0', async () => {
-    mockFetch(new Response('{"message":"rate limited"}', { status: 403, headers: ratelimitedHeaders() }));
+    mockFetch(
+      new Response('{"message":"rate limited"}', { status: 403, headers: ratelimitedHeaders() }),
+    );
     await expect(searchRepositories('react', 1)).rejects.toBeInstanceOf(RateLimitError);
     try {
       await searchRepositories('react', 1);
@@ -118,9 +120,7 @@ describe('getRepository', () => {
   });
 
   it('encodes owner and repo segments', async () => {
-    const fetchSpy = mockFetch(
-      new Response(JSON.stringify(repoFixture), { status: 200 }),
-    );
+    const fetchSpy = mockFetch(new Response(JSON.stringify(repoFixture), { status: 200 }));
     await getRepository('owner with space', 'repo/with-slash');
     const url = fetchSpy.mock.calls[0]?.[0] as URL;
     expect(url.pathname).toBe('/repos/owner%20with%20space/repo%2Fwith-slash');

@@ -1,9 +1,5 @@
 import { env } from './env';
-import type {
-  Repository,
-  RepositoryDetail,
-  SearchRepositoriesResponse,
-} from './github-types';
+import type { Repository, RepositoryDetail, SearchRepositoriesResponse } from './github-types';
 
 const API_BASE = 'https://api.github.com';
 const PER_PAGE = 30;
