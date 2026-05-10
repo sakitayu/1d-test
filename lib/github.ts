@@ -8,7 +8,7 @@ const PER_PAGE = 30;
 // 60s strikes a balance between data freshness and being a polite API client.
 const REVALIDATE_SECONDS = 60;
 
-const COMMON_HEADERS: HeadersInit = {
+const COMMON_HEADERS: Record<string, string> = {
   Accept: 'application/vnd.github+json',
   'X-GitHub-Api-Version': '2022-11-28',
 };
@@ -94,11 +94,15 @@ export async function getRepository(owner: string, repo: string): Promise<Reposi
 }
 
 function githubFetch(url: URL): Promise<Response> {
+  const headers: Record<string, string> = { ...COMMON_HEADERS };
+  if (env.GITHUB_TOKEN) {
+    // Authenticated: 5,000 core req/hour, 30 search req/min.
+    headers.Authorization = `Bearer ${env.GITHUB_TOKEN}`;
+  }
+  // Unauthenticated fallback: 60 core req/hour, 10 search req/min.
+  // The rate-limit UI surfaces both windows uniformly.
   return fetch(url, {
-    headers: {
-      ...COMMON_HEADERS,
-      Authorization: `Bearer ${env.GITHUB_TOKEN}`,
-    },
+    headers,
     next: { revalidate: REVALIDATE_SECONDS },
   } as RequestInit);
 }

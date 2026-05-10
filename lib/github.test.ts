@@ -92,6 +92,21 @@ describe('searchRepositories', () => {
       status: 502,
     });
   });
+
+  it('omits the Authorization header when GITHUB_TOKEN is unset', async () => {
+    const original = process.env.GITHUB_TOKEN;
+    process.env.GITHUB_TOKEN = '';
+    vi.resetModules();
+    const reloaded = await import('./github');
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(new Response(JSON.stringify(searchFixture), { status: 200 }));
+    await reloaded.searchRepositories('react', 1);
+    const init = fetchSpy.mock.calls[0]?.[1] as RequestInit;
+    expect((init.headers as Record<string, string>).Authorization).toBeUndefined();
+    process.env.GITHUB_TOKEN = original;
+    vi.resetModules();
+  });
 });
 
 describe('getRepository', () => {
