@@ -1,65 +1,86 @@
-import Image from 'next/image';
+import { formatNumber } from '@/lib/format';
+import { RateLimitError, searchRepositories } from '@/lib/github';
+import { parseSearchParams } from '@/lib/search-params';
+import { EmptyState } from './_components/empty-state';
+import { Pagination } from './_components/pagination';
+import { QueryErrorBanner } from './_components/query-error-banner';
+import { RateLimitBanner } from './_components/rate-limit-banner';
+import { RepoCard } from './_components/repo-card';
+import { SearchForm } from './_components/search-form';
 
-export default function Home() {
+type PageProps = {
+  searchParams: Promise<{ q?: string | string[]; page?: string | string[] }>;
+};
+
+export default async function Page({ searchParams }: PageProps) {
+  const parsed = parseSearchParams(await searchParams);
+
+  if (parsed.kind === 'empty') {
+    return (
+      <Shell>
+        <SearchForm />
+        <Hint />
+      </Shell>
+    );
+  }
+
+  if (parsed.kind === 'invalid') {
+    return (
+      <Shell>
+        <SearchForm initialQuery={parsed.q} />
+        <QueryErrorBanner />
+      </Shell>
+    );
+  }
+
+  try {
+    const { items, totalCount } = await searchRepositories(parsed.q, parsed.page);
+    return (
+      <Shell>
+        <SearchForm initialQuery={parsed.q} />
+        <ResultsHeader query={parsed.q} totalCount={totalCount} />
+        {items.length === 0 ? (
+          <EmptyState query={parsed.q} />
+        ) : (
+          <ul className="space-y-3">
+            {items.map((repo) => (
+              <RepoCard key={repo.id} repo={repo} />
+            ))}
+          </ul>
+        )}
+        <Pagination q={parsed.q} currentPage={parsed.page} totalCount={totalCount} />
+      </Shell>
+    );
+  } catch (e) {
+    if (e instanceof RateLimitError) {
+      return (
+        <Shell>
+          <SearchForm initialQuery={parsed.q} />
+          <RateLimitBanner reset={e.reset} resource={e.resource} />
+        </Shell>
+      );
+    }
+    throw e;
+  }
+}
+
+function Shell({ children }: { children: React.ReactNode }) {
+  return <div className="flex flex-col gap-6">{children}</div>;
+}
+
+function ResultsHeader({ query, totalCount }: { query: string; totalCount: number }) {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{' '}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{' '}
-            or the{' '}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{' '}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <p className="text-sm text-zinc-600 dark:text-zinc-400">
+      <span className="font-medium text-zinc-900 dark:text-zinc-100">「{query}」</span> の検索結果:
+      約 <span className="tabular-nums">{formatNumber(totalCount)}</span> 件
+    </p>
+  );
+}
+
+function Hint() {
+  return (
+    <p className="text-sm text-zinc-600 dark:text-zinc-400">
+      キーワードを入力して GitHub の公開リポジトリを検索します。
+    </p>
   );
 }
