@@ -1,15 +1,32 @@
-import { SearchForm } from './_components/search-form';
+'use client';
 
 // Server Component が GitHub API のレスポンスを待っている間に表示する
 // スケルトン。ヘッダー (検索フォーム) は表示し続けることで、ページ枠の
 // レイアウトが切り替わらず体感がスムーズになる。
+//
+// Client Component にしている理由: ロード中も SearchForm に現在のクエリを
+// 保持させるため。loading.tsx は page.tsx から props を受け取れない
+// (Next.js の Suspense fallback の仕様) ため、URL から useSearchParams で
+// 直接 q を取り出して SearchForm に渡す。これをしないと検索送信中に input が
+// 一瞬空になり placeholder が表示されてしまい、結果到着時に再度クエリが
+// 戻る挙動になって視覚的に違和感が出る。
+//
+// useSearchParams() は Next.js のルールにより Suspense 境界が必須
+// (`/_not-found` の static prerender 時に bail out できないと build エラー)
+// のため、QueryAwareSearchForm に切り出して <Suspense> でラップしている。
+
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+import { SearchForm } from './_components/search-form';
 
 const SKELETON_KEYS = ['s0', 's1', 's2', 's3', 's4'];
 
 export default function Loading() {
   return (
     <div className="flex flex-col gap-6" aria-busy="true" aria-live="polite">
-      <SearchForm />
+      <Suspense fallback={<SearchForm />}>
+        <QueryAwareSearchForm />
+      </Suspense>
       {/* 「〜の検索結果: 約 N 件」の ResultsHeader と同じ高さ (text-sm = h-5) を
           確保するプレースホルダ。これが無いと結果到着時にカード位置が縦に
           ジャンプする */}
@@ -22,6 +39,11 @@ export default function Loading() {
       <span className="sr-only">読み込み中</span>
     </div>
   );
+}
+
+function QueryAwareSearchForm() {
+  const q = useSearchParams().get('q') ?? '';
+  return <SearchForm initialQuery={q} />;
 }
 
 function SkeletonCard() {
