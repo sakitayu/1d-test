@@ -53,16 +53,15 @@ export default function RootLayout({
         </main>
         <footer className="border-t border-zinc-200 bg-overlay py-6 text-center text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
           <p>
-            Built with Next.js & the GitHub REST API. Source on{' '}
+            データ提供:{' '}
             <a
-              href="https://docs.github.com/en/rest/search/search"
+              href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
               className="underline transition-colors hover:text-zinc-700 dark:hover:text-zinc-300"
             >
-              docs.github.com
+              GitHub
             </a>
-            .
           </p>
         </footer>
       </body>
