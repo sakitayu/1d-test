@@ -1,7 +1,7 @@
 import { LinkExternalIcon, MarkGithubIcon } from '@primer/octicons-react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { BackLink } from '@/app/_components/back-link';
 import { RateLimitBanner } from '@/app/_components/rate-limit-banner';
 import { RepoStats } from '@/app/_components/repo-stats';
 import { formatRelativeTime } from '@/lib/format';
@@ -27,12 +27,9 @@ export default async function Page({ params }: PageProps) {
     const { data } = await getRepository(owner, repo);
     return (
       <article className="flex flex-col gap-6">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1 self-start text-sm text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:text-blue-400"
-        >
+        <BackLink className="inline-flex items-center gap-1 self-start text-sm text-blue-700 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:text-blue-400">
           ← 検索結果に戻る
-        </Link>
+        </BackLink>
 
         <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
           {/* biome-ignore lint/performance/noImgElement: GitHub avatar CDN serves
