@@ -21,7 +21,14 @@ export default function GlobalError({ error, reset }: Props) {
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center justify-center rounded-lg border border-red-300 bg-red-50 px-6 py-16 text-center dark:border-red-900 dark:bg-red-950">
+    // role="alert" でエラー発生をスクリーンリーダーに即座に通知する。
+    // error.tsx は Suspense / Error boundary の fallback として現れる
+    // (通常の route 遷移と異なり announce 経路が無いことがある) ため、
+    // 明示的に alert region として扱う。
+    <div
+      role="alert"
+      className="flex flex-col items-center justify-center rounded-lg border border-red-300 bg-red-50 px-6 py-16 text-center dark:border-red-900 dark:bg-red-950"
+    >
       <span aria-hidden="true" className="text-red-600 dark:text-red-400">
         <AlertIcon size={32} />
       </span>

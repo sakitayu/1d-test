@@ -1,4 +1,4 @@
-import { LinkExternalIcon, MarkGithubIcon } from '@primer/octicons-react';
+import { ChevronLeftIcon, LinkExternalIcon, MarkGithubIcon } from '@primer/octicons-react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { BackLink } from '@/app/_components/back-link';
@@ -28,7 +28,8 @@ export default async function Page({ params }: PageProps) {
     return (
       <article className="flex flex-col gap-6">
         <BackLink className="inline-flex items-center gap-1 self-start text-sm text-accent underline decoration-transparent transition-colors hover:decoration-current focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2">
-          ← 検索結果に戻る
+          <ChevronLeftIcon size={14} aria-hidden="true" />
+          検索結果に戻る
         </BackLink>
 
         <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
@@ -85,6 +86,10 @@ export default async function Page({ params }: PageProps) {
           <MarkGithubIcon size={16} aria-hidden="true" />
           GitHub で開く
           <LinkExternalIcon size={14} aria-hidden="true" />
+          {/* 新規タブで開くことを SR ユーザーに通知。target="_blank" は視覚的には
+              octicons の外部リンクアイコンで伝わるが、SR ユーザーには伝わらないため
+              sr-only テキストで補強する (WAI-ARIA Authoring Practices で推奨) */}
+          <span className="sr-only">(新しいタブで開く)</span>
         </a>
       </article>
     );
