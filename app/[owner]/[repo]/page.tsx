@@ -27,7 +27,7 @@ export default async function Page({ params }: PageProps) {
     const { data } = await getRepository(owner, repo);
     return (
       <article className="flex flex-col gap-6">
-        <BackLink className="inline-flex items-center gap-1 self-start text-sm text-accent underline decoration-transparent transition-colors hover:decoration-current focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2">
+        <BackLink className="inline-flex items-center gap-1 self-start text-sm text-accent underline decoration-transparent transition hover:decoration-current focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2">
           <ChevronLeftIcon size={14} aria-hidden="true" />
           検索結果に戻る
         </BackLink>
@@ -81,7 +81,7 @@ export default async function Page({ params }: PageProps) {
           href={data.html_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex h-11 w-fit items-center gap-2 rounded-md border border-zinc-300 bg-card px-4 text-sm font-medium text-zinc-900 shadow-sm transition-colors hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-900"
+          className="inline-flex h-11 w-fit items-center gap-2 rounded-md border border-zinc-300 bg-card px-4 text-sm font-medium text-zinc-900 shadow-sm transition hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-900"
         >
           <MarkGithubIcon size={16} aria-hidden="true" />
           GitHub で開く

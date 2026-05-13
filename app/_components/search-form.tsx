@@ -29,11 +29,11 @@ export function SearchForm({ initialQuery }: Props) {
             autoComplete="off"
             defaultValue={initialQuery}
             placeholder="例: react, vue, kubernetes"
-            className="h-11 w-full rounded-md border border-zinc-300 bg-card pl-9 pr-3 text-base text-zinc-900 shadow-sm placeholder:text-zinc-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2 dark:border-zinc-700 dark:text-zinc-100 dark:placeholder:text-zinc-500"
+            className="h-11 w-full rounded-md border border-zinc-300 bg-card pl-9 pr-3 text-base text-zinc-900 shadow-sm transition placeholder:text-zinc-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2 dark:border-zinc-700 dark:text-zinc-100 dark:placeholder:text-zinc-500"
           />
           <button
             type="submit"
-            className="inline-flex h-11 min-w-[88px] cursor-pointer items-center justify-center rounded-md bg-accent-bg px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-accent-bg-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2"
+            className="inline-flex h-11 min-w-[88px] cursor-pointer items-center justify-center rounded-md bg-accent-bg px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-accent-bg-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2"
           >
             検索
           </button>

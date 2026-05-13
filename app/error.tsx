@@ -46,7 +46,7 @@ export default function GlobalError({ error, reset }: Props) {
       <button
         type="button"
         onClick={reset}
-        className="mt-6 inline-flex h-11 cursor-pointer items-center justify-center rounded-md bg-red-600 px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2"
+        className="mt-6 inline-flex h-11 cursor-pointer items-center justify-center rounded-md bg-red-600 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2"
       >
         再試行
       </button>

@@ -50,7 +50,7 @@ function PageLink({
   children: React.ReactNode;
 }) {
   const className =
-    'inline-flex h-11 min-w-[88px] items-center justify-center gap-1.5 rounded-md border px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2';
+    'inline-flex h-11 min-w-[88px] items-center justify-center gap-1.5 rounded-md border px-4 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2';
   if (disabled || !href) {
     return (
       <span

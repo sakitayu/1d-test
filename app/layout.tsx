@@ -41,7 +41,7 @@ export default function RootLayout({
           <div className="mx-auto flex max-w-3xl items-center gap-2 px-4 py-4 sm:px-6">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-md text-base font-semibold text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2 dark:text-zinc-100"
+              className="inline-flex items-center gap-2 rounded-md text-base font-semibold text-zinc-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2 dark:text-zinc-100"
             >
               <MarkGithubIcon size={20} aria-hidden="true" />
               <span>Repository Search</span>
@@ -58,7 +58,7 @@ export default function RootLayout({
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline transition-colors hover:text-zinc-700 dark:hover:text-zinc-300"
+              className="underline transition hover:text-zinc-700 dark:hover:text-zinc-300"
             >
               GitHub
             </a>
