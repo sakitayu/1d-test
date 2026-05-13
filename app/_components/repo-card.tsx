@@ -13,7 +13,7 @@ export function RepoCard({ repo }: Props) {
     <li className="list-none">
       <Link
         href={`/${repo.owner.login}/${repo.name}`}
-        className="group block rounded-lg border border-zinc-200 bg-card p-5 shadow-sm transition-shadow hover:border-zinc-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2 dark:border-zinc-800 dark:hover:border-zinc-700"
+        className="group block rounded-lg border border-zinc-200 bg-card p-5 shadow-sm transition hover:border-zinc-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2 dark:border-zinc-800 dark:hover:border-zinc-700"
       >
         <div className="flex items-start gap-4">
           {/* biome-ignore lint/performance/noImgElement: avatar は GitHub の

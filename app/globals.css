@@ -43,6 +43,14 @@
   --color-accent: var(--gh-accent);
   --color-accent-bg: var(--gh-accent-bg);
   --color-accent-bg-hover: var(--gh-accent-bg-hover);
+
+  /* hover / focus 系の transition を全体的に「ふわっと」した質感にする。
+     200ms ease-out は Material / Primer 系 design system の "standard"
+     interaction tier に相当し、機械的すぎず・遅すぎない中庸の値。
+     Tailwind v4 では各 `transition-*` ユーティリティがこれらの変数を
+     参照するため、個別コンポーネントへの duration-* 追加は不要になる。 */
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 html,
