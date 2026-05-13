@@ -32,8 +32,10 @@ export default async function Page({ params }: PageProps) {
         </BackLink>
 
         <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
-          {/* biome-ignore lint/performance/noImgElement: avatar は GitHub の CDN が
-              独自に最適化済みのため、next/image を挟むメリットが薄い */}
+          {/* biome-ignore lint/performance/noImgElement: avatar は 72px 固定の
+              小画像で、next/image による最適化メリット (WebP 変換 / srcset) が
+              数 KB に留まる一方、next.config.ts の remotePatterns 設定コストが
+              乗るため、本アプリ規模では引き合わないと判断 */}
           <img
             src={data.owner.avatar_url}
             alt={data.owner.login}

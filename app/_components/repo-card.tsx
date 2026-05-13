@@ -16,9 +16,10 @@ export function RepoCard({ repo }: Props) {
         className="group block rounded-lg border border-zinc-200 bg-card p-5 shadow-sm transition hover:border-zinc-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2 dark:border-zinc-800 dark:hover:border-zinc-700"
       >
         <div className="flex items-start gap-4">
-          {/* biome-ignore lint/performance/noImgElement: avatar は GitHub の
-              CDN から配信されており、サイズも一定でないため next/image による
-              最適化のメリットが薄く、remotePatterns の設定コストの方が上回る */}
+          {/* biome-ignore lint/performance/noImgElement: avatar は 48px 固定の
+              小画像で、next/image による最適化メリット (WebP 変換 / srcset) が
+              数 KB に留まる一方、next.config.ts の remotePatterns 設定コストが
+              乗るため、本アプリ規模では引き合わないと判断 */}
           <img
             src={repo.owner.avatar_url}
             alt={repo.owner.login}
