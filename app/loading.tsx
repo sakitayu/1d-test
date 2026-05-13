@@ -10,6 +10,10 @@ export default function Loading() {
   return (
     <div className="flex flex-col gap-6" aria-busy="true" aria-live="polite">
       <SearchForm />
+      {/* 「〜の検索結果: 約 N 件」の ResultsHeader と同じ高さ (text-sm = h-5) を
+          確保するプレースホルダ。これが無いと結果到着時にカード位置が縦に
+          ジャンプする */}
+      <div className="h-5 w-2/3 max-w-xs animate-pulse rounded bg-zinc-200 dark:bg-zinc-800" />
       <div className="space-y-3">
         {SKELETON_KEYS.map((key) => (
           <SkeletonCard key={key} />
