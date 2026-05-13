@@ -3,11 +3,11 @@
 //
 // GitHub Search API の制約をここに集約:
 // - クエリ文字列は最大 256 文字 (演算子・修飾子を除く)
-// - 検索結果は最大 1,000 件 (30 件 × 34 ページ)
+// - 検索結果は最大 1,000 件 (30 件/ページで 33 ページ + 端数 10 件 = 34 ページ目で打ち切り)
 
 export const Q_MAX = 256;
 export const PER_PAGE = 30;
-export const PAGE_MAX = 34; // ceil(1000 / 30) = 34、これを超えると API が拒否する
+export const PAGE_MAX = 34; // ceil(1000 / 30) = 34。page=35 以降は API が 422 で拒否する
 
 export type ParsedSearchParams =
   | { kind: 'empty'; page: number }

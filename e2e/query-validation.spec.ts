@@ -1,8 +1,9 @@
 import { expect, test } from '@playwright/test';
 
-// 境界値テスト: 257 文字のクエリはサーバ到達前にクライアントで止まり、
-// GitHub API を絶対に呼ばないことを確認する。parseSearchParams 側で弾くことで
-// API クォータを無駄に消費しない設計の保護線。
+// 境界値テスト: 257 文字のクエリは page.tsx (Server Component) 内の
+// parseSearchParams で弾かれ、GitHub API には到達しないことを確認する。
+// (ブラウザ自体は通常通りサーバへリクエストを送るが、サーバ側で API 呼び出しを
+//  短絡することで API クォータを無駄に消費しないための保護線)
 
 test('a 257-char query shows the validation banner without calling the API', async ({ page }) => {
   const longQ = 'a'.repeat(257);

@@ -19,9 +19,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* dark モードでは 3 段階のグラデーションを付ける:
+    /* dark モードでは 3 段階のサーフェス階層を付ける:
        header/footer (#010409) < body (#0d1117) < card (#161b22)
-       GitHub.com の dark テーマと同じ視覚階層。 */
+       値はいずれも GitHub Primer の canvas.* トークン
+       (inset / default / subtle) と一致するが、配置は本アプリ独自
+       (header に最も暗い inset を当てて沈み込ませ、card を subtle で
+       浮かせる構成)。github.com 自体は header / body を同じ
+       canvas.default で揃えている。 */
     --gh-canvas: #0d1117;
     --gh-overlay: #010409;
     --gh-card: #161b22;
@@ -45,10 +49,11 @@
   --color-accent-bg-hover: var(--gh-accent-bg-hover);
 
   /* hover / focus 系の transition を全体的に「ふわっと」した質感にする。
-     200ms ease-out は Material / Primer 系 design system の "standard"
-     interaction tier に相当し、機械的すぎず・遅すぎない中庸の値。
-     Tailwind v4 では各 `transition-*` ユーティリティがこれらの変数を
-     参照するため、個別コンポーネントへの duration-* 追加は不要になる。 */
+     UI 業界で hover transition の duration は 150-300ms に集中しており、
+     200ms はその中央付近で機械的すぎず・遅すぎない値 (Material Design では
+     "short4" 帯に該当)。Tailwind v4 では `transition-*` ユーティリティが
+     これらの変数を参照するため、個別コンポーネントへの duration-* / ease-*
+     追加無しで全体の interaction 感を 1 箇所で管理できる。 */
   --default-transition-duration: 200ms;
   --default-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
