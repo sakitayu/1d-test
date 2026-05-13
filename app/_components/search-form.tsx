@@ -33,7 +33,7 @@ export function SearchForm({ initialQuery }: Props) {
           />
           <button
             type="submit"
-            className="inline-flex h-11 min-w-[88px] items-center justify-center rounded-md bg-accent-bg px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-accent-bg-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2"
+            className="inline-flex h-11 min-w-[88px] cursor-pointer items-center justify-center rounded-md bg-accent-bg px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-accent-bg-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2"
           >
             検索
           </button>
