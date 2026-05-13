@@ -58,7 +58,7 @@ export default function RootLayout({
               href="https://docs.github.com/en/rest/search/search"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-zinc-700 dark:hover:text-zinc-300"
+              className="underline transition-colors hover:text-zinc-700 dark:hover:text-zinc-300"
             >
               docs.github.com
             </a>

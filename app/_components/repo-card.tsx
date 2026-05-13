@@ -28,7 +28,7 @@ export function RepoCard({ repo }: Props) {
             className="h-12 w-12 flex-shrink-0 rounded-md border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900"
           />
           <div className="min-w-0 flex-1">
-            <h2 className="truncate text-base font-semibold text-zinc-900 group-hover:text-accent dark:text-zinc-100">
+            <h2 className="truncate text-base font-semibold text-zinc-900 transition-colors group-hover:text-accent dark:text-zinc-100">
               {repo.full_name}
             </h2>
             {repo.description ? (
