@@ -50,7 +50,7 @@ function PageLink({
   children: React.ReactNode;
 }) {
   const className =
-    'inline-flex h-11 min-w-[88px] items-center justify-center gap-1.5 rounded-md border px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2';
+    'inline-flex h-11 min-w-[88px] items-center justify-center gap-1.5 rounded-md border px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2';
   if (disabled || !href) {
     return (
       <span
@@ -64,7 +64,7 @@ function PageLink({
   return (
     <Link
       href={href}
-      className={`${className} border-zinc-300 bg-white text-zinc-900 hover:border-zinc-400 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:hover:border-zinc-500 dark:hover:bg-zinc-900`}
+      className={`${className} border-zinc-300 bg-card text-zinc-900 hover:border-zinc-400 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-100 dark:hover:border-zinc-500 dark:hover:bg-zinc-900`}
     >
       {children}
     </Link>

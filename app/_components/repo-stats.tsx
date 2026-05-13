@@ -28,7 +28,7 @@ export function RepoStats({ stargazers, watchers, forks, openIssues }: Props) {
 
 function Stat({ label, value, icon }: { label: string; value: number; icon: React.ReactNode }) {
   return (
-    <div className="rounded-md border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-950">
+    <div className="rounded-md border border-zinc-200 bg-card p-3 dark:border-zinc-800">
       <dt className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
         <span className="text-zinc-500">{icon}</span>
         <span>{label}</span>

@@ -22,7 +22,7 @@ export default function Loading() {
 
 function SkeletonCard() {
   return (
-    <div className="rounded-lg border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
+    <div className="rounded-lg border border-zinc-200 bg-card p-5 dark:border-zinc-800">
       <div className="flex items-start gap-4">
         <div className="h-12 w-12 animate-pulse rounded-md bg-zinc-200 dark:bg-zinc-800" />
         <div className="flex-1 space-y-3">

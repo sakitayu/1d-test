@@ -1,8 +1,48 @@
 @import "tailwindcss";
 
+/* GitHub Primer に準拠したサーフェスとアクセントのパレット。
+   light / dark の値は prefers-color-scheme で同時に切り替わるため、
+   utility (bg-canvas, text-accent 等) は dark: variant 無しで自動追従する。 */
+:root {
+  /* Surface: canvas (body) < overlay (header/footer) < card (elevated)
+     light mode では全て白で、視覚的な区別は border に委ねる。 */
+  --gh-canvas: #ffffff;
+  --gh-overlay: #ffffff;
+  --gh-card: #ffffff;
+
+  /* Accent: GitHub Primer の accent.fg = link 色 / accent.emphasis = button bg。
+     light モードでは両者が同値、dark モードでは可読性のため別値になる。 */
+  --gh-accent: #0969da;
+  --gh-accent-bg: #0969da;
+  --gh-accent-bg-hover: #0860c4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* dark モードでは 3 段階のグラデーションを付ける:
+       header/footer (#010409) < body (#0d1117) < card (#161b22)
+       GitHub.com の dark テーマと同じ視覚階層。 */
+    --gh-canvas: #0d1117;
+    --gh-overlay: #010409;
+    --gh-card: #161b22;
+
+    /* dark 背景上は薄い青の方が読みやすく、ボタン背景は中間の濃さが最適。
+       Primer の accent.fg = #4493f8 / accent.emphasis = #1f6feb を採用。 */
+    --gh-accent: #4493f8;
+    --gh-accent-bg: #1f6feb;
+    --gh-accent-bg-hover: #388bfd;
+  }
+}
+
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--gh-canvas);
+  --color-overlay: var(--gh-overlay);
+  --color-card: var(--gh-card);
+  --color-accent: var(--gh-accent);
+  --color-accent-bg: var(--gh-accent-bg);
+  --color-accent-bg-hover: var(--gh-accent-bg-hover);
 }
 
 html,

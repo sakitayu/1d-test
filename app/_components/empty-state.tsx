@@ -6,7 +6,7 @@ type Props = {
 
 export function EmptyState({ query }: Props) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-zinc-300 bg-white px-6 py-16 text-center dark:border-zinc-700 dark:bg-zinc-950">
+    <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-zinc-300 bg-card px-6 py-16 text-center dark:border-zinc-700">
       <span aria-hidden="true" className="text-zinc-400">
         <SearchIcon size={32} />
       </span>

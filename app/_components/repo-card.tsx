@@ -13,7 +13,7 @@ export function RepoCard({ repo }: Props) {
     <li className="list-none">
       <Link
         href={`/${repo.owner.login}/${repo.name}`}
-        className="group block rounded-lg border border-zinc-200 bg-white p-5 shadow-sm transition-shadow hover:border-zinc-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700"
+        className="group block rounded-lg border border-zinc-200 bg-card p-5 shadow-sm transition-shadow hover:border-zinc-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2 dark:border-zinc-800 dark:hover:border-zinc-700"
       >
         <div className="flex items-start gap-4">
           {/* biome-ignore lint/performance/noImgElement: avatar は GitHub の
@@ -28,7 +28,7 @@ export function RepoCard({ repo }: Props) {
             className="h-12 w-12 flex-shrink-0 rounded-md border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900"
           />
           <div className="min-w-0 flex-1">
-            <h2 className="truncate text-base font-semibold text-zinc-900 group-hover:text-blue-700 dark:text-zinc-100 dark:group-hover:text-blue-400">
+            <h2 className="truncate text-base font-semibold text-zinc-900 group-hover:text-accent dark:text-zinc-100">
               {repo.full_name}
             </h2>
             {repo.description ? (
@@ -41,7 +41,7 @@ export function RepoCard({ repo }: Props) {
                 <span className="inline-flex items-center gap-1.5">
                   <span
                     aria-hidden="true"
-                    className="inline-block h-2.5 w-2.5 rounded-full bg-blue-500"
+                    className="inline-block h-2.5 w-2.5 rounded-full bg-accent-bg"
                   />
                   <span>{repo.language}</span>
                 </span>

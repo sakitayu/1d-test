@@ -30,18 +30,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+      <body className="flex min-h-full flex-col bg-canvas text-zinc-900 dark:text-zinc-100">
         <a
           href="#main"
-          className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-4 focus-visible:top-4 focus-visible:z-50 focus-visible:rounded-md focus-visible:bg-blue-600 focus-visible:px-3 focus-visible:py-2 focus-visible:text-sm focus-visible:font-semibold focus-visible:text-white"
+          className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-4 focus-visible:top-4 focus-visible:z-50 focus-visible:rounded-md focus-visible:bg-accent-bg focus-visible:px-3 focus-visible:py-2 focus-visible:text-sm focus-visible:font-semibold focus-visible:text-white"
         >
           メインコンテンツへスキップ
         </a>
-        <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
+        <header className="border-b border-zinc-200 bg-overlay dark:border-zinc-800">
           <div className="mx-auto flex max-w-3xl items-center gap-2 px-4 py-4 sm:px-6">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-md text-base font-semibold text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:text-zinc-100"
+              className="inline-flex items-center gap-2 rounded-md text-base font-semibold text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2 dark:text-zinc-100"
             >
               <MarkGithubIcon size={20} aria-hidden="true" />
               <span>Repository Search</span>
@@ -51,7 +51,7 @@ export default function RootLayout({
         <main id="main" className="mx-auto w-full max-w-3xl flex-1 px-4 py-6 sm:px-6 sm:py-10">
           {children}
         </main>
-        <footer className="border-t border-zinc-200 bg-white py-6 text-center text-xs text-zinc-500 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-400">
+        <footer className="border-t border-zinc-200 bg-overlay py-6 text-center text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
           <p>
             Built with Next.js & the GitHub REST API. Source on{' '}
             <a
