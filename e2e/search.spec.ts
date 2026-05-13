@@ -20,10 +20,18 @@ test('search → list → detail → back', async ({ page }) => {
   await expect(firstLink).toBeVisible();
   await firstLink.click();
 
-  // 詳細ページに 4 つの統計ラベルが表示されることを確認
+  // home の <h1 class="sr-only"> も検出されてしまうため、URL 変化を明示的に
+  // 待ってから詳細ページ側の assertion を始める (Next.js App Router の
+  // client-side navigation との race を避ける)
+  await page.waitForURL(/\/[^/?]+\/[^/?]+$/);
+
+  // 詳細ページに 4 つの統計ラベルが表示されることを確認。
+  // RepoCard には sr-only "Star" 等が含まれており getByText('Star') だと
+  // strict mode で衝突するため、RepoStats 内にしか存在しない <dt> 要素に
+  // 絞ってマッチさせる
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   for (const label of ['Star', 'Watcher', 'Fork', 'Issue']) {
-    await expect(page.getByText(label, { exact: true })).toBeVisible();
+    await expect(page.locator('dt').filter({ hasText: label })).toBeVisible();
   }
 
   await page.goBack();
