@@ -1,6 +1,6 @@
-// Hand-written types for GitHub REST API responses. Only the fields the app
-// actually consumes are listed — the API returns far more, but pulling everything
-// in would create a maintenance burden without value.
+// GitHub REST API レスポンスの手書き型定義。アプリが実際に参照するフィールドだけ
+// 列挙する。API は他にも多数のフィールドを返すが、全部取り込むと保守コストだけが
+// 増えて得るものが無いため最小限に絞っている。
 
 export type Repository = {
   id: number;
@@ -10,9 +10,9 @@ export type Repository = {
   description: string | null;
   language: string | null;
   stargazers_count: number;
-  // GitHub API quirk: `watchers_count` is a historical alias and returns the
-  // same value as `stargazers_count`. The "real" watcher count (notification
-  // subscribers) is exposed only on the detail endpoint as `subscribers_count`.
+  // GitHub API の歴史的な仕様: `watchers_count` は旧 API 時代の別名で、
+  // 現在は `stargazers_count` と同じ値が返る。「本当の Watcher 数」
+  // (通知購読者数) は詳細エンドポイントで返る `subscribers_count` のみ。
   watchers_count: number;
   forks_count: number;
   open_issues_count: number;
@@ -26,8 +26,8 @@ export type SearchRepositoriesResponse = {
   items: Repository[];
 };
 
-// Extra fields available only via `/repos/{owner}/{repo}`.
-// `subscribers_count` is what the app surfaces as "Watcher 数" on the detail page.
+// `/repos/{owner}/{repo}` でのみ取得できる追加フィールド。
+// `subscribers_count` を詳細ページで「Watcher 数」として表示している。
 export type RepositoryDetail = Repository & {
   subscribers_count: number;
 };

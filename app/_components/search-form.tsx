@@ -1,5 +1,6 @@
-// Native <form action="/" method="get"> so JS-disabled browsers still navigate
-// to /?q=... — progressive enhancement first, React last.
+// ネイティブ HTML の `<form action="/" method="get">` を使うことで、
+// JavaScript 無効環境でもブラウザが /?q=... へ遷移できる。
+// progressive enhancement を優先し、React は機能の前提にしない。
 
 import { SearchIcon } from '@primer/octicons-react';
 

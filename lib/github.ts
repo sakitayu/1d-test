@@ -4,8 +4,8 @@ import type { Repository, RepositoryDetail, SearchRepositoriesResponse } from '.
 const API_BASE = 'https://api.github.com';
 const PER_PAGE = 30;
 
-// Cache hint is a Next.js extension; non-Next runtimes ignore it harmlessly.
-// 60s strikes a balance between data freshness and being a polite API client.
+// `next: { revalidate }` は Next.js 拡張のため、非 Next.js 環境では単に
+// 無視される。60 秒はデータの鮮度と API への配慮のバランス。
 const REVALIDATE_SECONDS = 60;
 
 const COMMON_HEADERS: Record<string, string> = {
@@ -13,9 +13,10 @@ const COMMON_HEADERS: Record<string, string> = {
   'X-GitHub-Api-Version': '2022-11-28',
 };
 
-// Domain-level errors. The API client never calls Next.js control-flow
-// helpers (`notFound()` / `redirect()`); routes translate these errors
-// at the boundary so the client stays framework-agnostic.
+// ドメイン例外。API クライアントは Next.js の制御フロー (`notFound()` /
+// `redirect()`) を呼ばない設計にしており、これらの例外を route 側で
+// Next.js の制御フローに変換する。こうすることでクライアント層は
+// フレームワーク非依存に保たれ、CLI / テスト / 他フレームワークから再利用可能。
 
 export class NotFoundError extends Error {
   constructor(public resource: string) {
@@ -96,11 +97,11 @@ export async function getRepository(owner: string, repo: string): Promise<Reposi
 function githubFetch(url: URL): Promise<Response> {
   const headers: Record<string, string> = { ...COMMON_HEADERS };
   if (env.GITHUB_TOKEN) {
-    // Authenticated: 5,000 core req/hour, 30 search req/min.
+    // 認証あり: core 5,000 req/時、search 30 req/分
     headers.Authorization = `Bearer ${env.GITHUB_TOKEN}`;
   }
-  // Unauthenticated fallback: 60 core req/hour, 10 search req/min.
-  // The rate-limit UI surfaces both windows uniformly.
+  // 認証無し時のフォールバック: core 60 req/時、search 10 req/分。
+  // レート制限到達時の UI は両方のクォータで統一して動作する。
   return fetch(url, {
     headers,
     next: { revalidate: REVALIDATE_SECONDS },
@@ -119,14 +120,14 @@ async function toDomainError(res: Response, resource: string): Promise<Error> {
     return new NotFoundError(resource);
   }
 
-  // Best-effort: surface the API's own message for ops/debug, fall back
-  // to status text if the body isn't JSON-shaped.
+  // 可能なら API が返すエラーメッセージを運用 / デバッグ用に拾う。
+  // body が JSON 形式でない場合は status text にフォールバック。
   let message = `${res.status} ${res.statusText}`;
   try {
     const body = (await res.json()) as { message?: string };
     if (body?.message) message = body.message;
   } catch {
-    // ignore
+    // 無視
   }
   return new GitHubApiError(res.status, message);
 }

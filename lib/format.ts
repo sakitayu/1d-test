@@ -1,5 +1,5 @@
-// Intl-based formatters. Avoid date-fns / dayjs / numeral — `Intl` is built-in
-// and covers every case the app needs.
+// Intl ベースのフォーマッタ。date-fns / dayjs / numeral を入れず、
+// ビルトインの `Intl` で必要な要件を全てカバーする。
 
 const numberFormatter = new Intl.NumberFormat('en-US');
 const relativeFormatter = new Intl.RelativeTimeFormat('ja', { numeric: 'auto' });
@@ -45,7 +45,7 @@ export function formatRateLimitReset(
 ): RateLimitResetFormatted {
   const reset = new Date(resetUnix * 1000);
   const diffMs = reset.getTime() - now.getTime();
-  // Clamp to 0 so a stale reset timestamp doesn't surface as "あと -3 分".
+  // 過去の reset 時刻が来た場合に「あと -3 分」と表示されないよう 0 にクランプ
   const relativeMinutes = Math.max(0, Math.ceil(diffMs / 60_000));
   return {
     absolute: timeFormatter.format(reset),

@@ -1,5 +1,5 @@
-// Detail-page skeleton. Matches the eventual layout so users perceive the
-// transition as a fill-in rather than a layout shift.
+// 詳細ページ用スケルトン。実コンテンツが入る位置と同じレイアウトで描画することで、
+// 読み込み完了時にレイアウトがガクッと動かず、欠けが埋まる感覚で遷移する。
 
 export default function Loading() {
   return (

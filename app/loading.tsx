@@ -1,7 +1,8 @@
 import { SearchForm } from './_components/search-form';
 
-// Skeleton renders while the Server Component is awaiting the GitHub API.
-// The header (search form) stays mounted so the page frame doesn't reflow.
+// Server Component が GitHub API のレスポンスを待っている間に表示する
+// スケルトン。ヘッダー (検索フォーム) は表示し続けることで、ページ枠の
+// レイアウトが切り替わらず体感がスムーズになる。
 
 const SKELETON_KEYS = ['s0', 's1', 's2', 's3', 's4'];
 

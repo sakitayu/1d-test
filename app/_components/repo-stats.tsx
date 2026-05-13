@@ -1,6 +1,5 @@
-// Detail-page statistics row. The four metrics share visual weight and color
-// on purpose — picking favorites here would imply an information hierarchy
-// that the data itself doesn't support.
+// 詳細ページの統計値ロー。4 つの数値は意図的に視覚的な重みと色を揃えている。
+// 個別に強調を付けるとデータ側に存在しない情報階層を読み手に錯覚させるため。
 
 import { EyeIcon, IssueOpenedIcon, RepoForkedIcon, StarIcon } from '@primer/octicons-react';
 import { formatNumber } from '@/lib/format';

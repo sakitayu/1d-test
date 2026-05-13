@@ -32,8 +32,8 @@ export default async function Page({ params }: PageProps) {
         </BackLink>
 
         <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
-          {/* biome-ignore lint/performance/noImgElement: GitHub avatar CDN serves
-              its own optimization; next/image adds little here. */}
+          {/* biome-ignore lint/performance/noImgElement: avatar は GitHub の CDN が
+              独自に最適化済みのため、next/image を挟むメリットが薄い */}
           <img
             src={data.owner.avatar_url}
             alt={data.owner.login}

@@ -1,13 +1,13 @@
-// Pure transformation: URL searchParams (string-or-string[]) → validated input.
-// No Next.js / React imports so this is trivially unit-testable and reusable.
+// URL searchParams (string-or-string[]) を検証済み入力に変換する純粋関数。
+// Next.js / React の import を含めないため、ユニットテストや他環境での再利用が容易。
 //
-// GitHub Search API constraints baked in:
-// - Query string max length is 256 characters (excluding operators/qualifiers)
-// - Search returns at most 1,000 results (30 per page × 34 pages)
+// GitHub Search API の制約をここに集約:
+// - クエリ文字列は最大 256 文字 (演算子・修飾子を除く)
+// - 検索結果は最大 1,000 件 (30 件 × 34 ページ)
 
 export const Q_MAX = 256;
 export const PER_PAGE = 30;
-export const PAGE_MAX = 34; // ceil(1000 / 30) = 34, then API rejects beyond.
+export const PAGE_MAX = 34; // ceil(1000 / 30) = 34、これを超えると API が拒否する
 
 export type ParsedSearchParams =
   | { kind: 'empty'; page: number }

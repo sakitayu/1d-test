@@ -1,9 +1,10 @@
 'use client';
 
-// Generic last-resort error boundary. Custom-typed errors with their own
-// props (RateLimitError / NotFoundError) are caught earlier — this file
-// must never `instanceof`-check, because errors from Server Components
-// are serialized across the boundary and lose their prototype + extra props.
+// 汎用のラストリゾート用エラーバウンダリ。独自プロパティを持つ Error
+// (RateLimitError / NotFoundError) は page.tsx 側で先に catch しているため、
+// ここでは `instanceof` 判定を絶対に行わない。Server Component で発生した
+// Error は Client Component 境界でシリアライズされ、prototype と独自プロパティが
+// 失われるため、判別ロジックをこのファイルに置くと壊れる。
 
 import { AlertIcon } from '@primer/octicons-react';
 import { useEffect } from 'react';
@@ -15,7 +16,7 @@ type Props = {
 
 export default function GlobalError({ error, reset }: Props) {
   useEffect(() => {
-    // eslint-disable-next-line no-console
+    // 最終フォールバック時のデバッグ用にエラーをコンソールへ出力
     console.error('App boundary caught:', error);
   }, [error]);
 

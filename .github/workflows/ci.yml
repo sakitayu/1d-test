@@ -20,10 +20,10 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
         env:
-          # The repo runs unauthenticated by default; we still pass the
-          # Actions-provided token here so the github client takes the
-          # authenticated code path during tests, matching the way most
-          # production deployments will be configured.
+          # 本リポジトリは未認証でも動作する設計だが、CI では Actions が
+          # 自動発行する token を渡すことで、テスト中に github クライアントが
+          # 認証付きコードパスを通る。多くの production デプロイ環境と同じ
+          # 経路を踏ませることで sanity check になる。
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
         env:

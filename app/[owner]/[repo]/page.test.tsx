@@ -40,11 +40,11 @@ describe('<Page /> (detail)', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('react');
     expect(screen.getByText('The library for web and native user interfaces.')).toBeInTheDocument();
     expect(screen.getByText('JavaScript')).toBeInTheDocument();
-    // Watcher = subscribers_count (not watchers_count)
+    // Watcher = subscribers_count (watchers_count ではない)
     expect(screen.getByText('6,629')).toBeInTheDocument();
-    // Star
+    // Star 数
     expect(screen.getByText('244,917')).toBeInTheDocument();
-    // External GitHub link
+    // GitHub への外部リンク
     const external = screen.getByRole('link', { name: /GitHub で開く/ });
     expect(external).toHaveAttribute('href', 'https://github.com/facebook/react');
   });

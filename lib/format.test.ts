@@ -18,8 +18,8 @@ describe('formatRelativeTime', () => {
   });
 
   it('returns "今" / "今日" for tiny offsets', () => {
-    // `numeric: 'auto'` produces locale-friendly strings near zero
-    // (e.g. "今", "今日"); we just assert it does not blow up.
+    // `numeric: 'auto'` はゼロ近傍でロケールに応じた表現 (「今」「今日」等) を返す。
+    // ここではクラッシュせず文字列が返ることだけ assert する。
     const result = formatRelativeTime(new Date(now.getTime() - 100), now);
     expect(typeof result).toBe('string');
     expect(result.length).toBeGreaterThan(0);

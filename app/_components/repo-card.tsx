@@ -16,9 +16,9 @@ export function RepoCard({ repo }: Props) {
         className="group block rounded-lg border border-zinc-200 bg-white p-5 shadow-sm transition-shadow hover:border-zinc-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700"
       >
         <div className="flex items-start gap-4">
-          {/* biome-ignore lint/performance/noImgElement: avatar comes from
-              GitHub CDN with non-deterministic dimensions; next/image's
-              optimization adds little here and complicates remotePatterns. */}
+          {/* biome-ignore lint/performance/noImgElement: avatar は GitHub の
+              CDN から配信されており、サイズも一定でないため next/image による
+              最適化のメリットが薄く、remotePatterns の設定コストの方が上回る */}
           <img
             src={repo.owner.avatar_url}
             alt={repo.owner.login}

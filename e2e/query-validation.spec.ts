@@ -1,15 +1,15 @@
 import { expect, test } from '@playwright/test';
 
-// Boundary check: 257-char query must stop client-side and never
-// hit the GitHub API. Catching this at parseSearchParams keeps us
-// honest about API quota usage.
+// 境界値テスト: 257 文字のクエリはサーバ到達前にクライアントで止まり、
+// GitHub API を絶対に呼ばないことを確認する。parseSearchParams 側で弾くことで
+// API クォータを無駄に消費しない設計の保護線。
 
 test('a 257-char query shows the validation banner without calling the API', async ({ page }) => {
   const longQ = 'a'.repeat(257);
   await page.goto(`/?q=${longQ}`);
 
-  // Next.js injects its own role="alert" route announcer, so target the
-  // banner by its specific copy instead of the role alone.
+  // Next.js が独自の role="alert" route announcer を注入するため、
+  // role だけだと strict mode で複数マッチして落ちる。バナーの文言で特定する。
   await expect(page.getByText('検索クエリが長すぎます')).toBeVisible();
   await expect(page.getByText(/256 文字/)).toBeVisible();
 });
