@@ -8,6 +8,8 @@ test('a 257-char query shows the validation banner without calling the API', asy
   const longQ = 'a'.repeat(257);
   await page.goto(`/?q=${longQ}`);
 
-  await expect(page.getByRole('alert')).toBeVisible();
+  // Next.js injects its own role="alert" route announcer, so target the
+  // banner by its specific copy instead of the role alone.
+  await expect(page.getByText('検索クエリが長すぎます')).toBeVisible();
   await expect(page.getByText(/256 文字/)).toBeVisible();
 });
