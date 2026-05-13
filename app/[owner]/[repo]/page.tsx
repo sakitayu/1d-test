@@ -27,7 +27,7 @@ export default async function Page({ params }: PageProps) {
     const { data } = await getRepository(owner, repo);
     return (
       <article className="flex flex-col gap-6">
-        <BackLink className="inline-flex items-center gap-1 self-start text-sm text-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2">
+        <BackLink className="inline-flex items-center gap-1 self-start text-sm text-accent underline decoration-transparent transition-colors hover:decoration-current focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bg focus-visible:ring-offset-2">
           ← 検索結果に戻る
         </BackLink>
 
