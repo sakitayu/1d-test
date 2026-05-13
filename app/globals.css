@@ -64,10 +64,11 @@ body {
 }
 
 /* <input type="search"> のネイティブ clear (×) ボタンをカスタム描画する。
-   WebKit のデフォルトは固定の暗いグレーで dark モード背景上で contrast が
-   不足する (#161b22 上で ~2.5:1、WCAG AA 3:1 を下回る) ため、Primer の
-   x-16 octicon を mask-image として焼き、background-color で着色する。
-   light / dark どちらでも 4.5:1 以上を確保し、hover で更に色を強める。
+   WebKit のデフォルトは固定の暗めグレー (バージョン/OS で #555〜#767676
+   程度の幅) で、dark モード背景 (#161b22) 上ではコントラストが落ち、
+   WCAG AA (3:1) を下回るケースが出る。Primer の x-16 octicon を
+   mask-image として焼き、background-color で着色することで light / dark
+   どちらでも 4.5:1 以上を確保し、hover で更に色を強める。
 
    ボタンの出現は :placeholder-shown 擬似クラスで制御:
    input 空 (placeholder 表示中) → opacity 0 + pointer-events none で完全に隠す
