@@ -60,6 +60,7 @@ export default async function Page({ searchParams }: PageProps) {
         </Shell>
       );
     }
+
     throw e;
   }
 }

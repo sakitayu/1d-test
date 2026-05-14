@@ -98,6 +98,7 @@ export default async function Page({ params }: PageProps) {
     if (e instanceof RateLimitError) {
       return <RateLimitBanner reset={e.reset} resource={e.resource} />;
     }
+
     throw e;
   }
 }

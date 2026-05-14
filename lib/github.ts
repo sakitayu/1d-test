@@ -129,6 +129,7 @@ async function toDomainError(res: Response, resource: string): Promise<Error> {
   } catch {
     // 無視
   }
+
   return new GitHubApiError(res.status, message);
 }
 
@@ -138,6 +139,7 @@ function parseRateLimit(headers: Headers): RateLimitMeta | null {
   const reset = headers.get('x-ratelimit-reset');
   const resource = headers.get('x-ratelimit-resource');
   if (!limit || !remaining || !reset || !resource) return null;
+
   return {
     limit: Number(limit),
     remaining: Number(remaining),
