@@ -47,15 +47,6 @@
   --color-accent: var(--gh-accent);
   --color-accent-bg: var(--gh-accent-bg);
   --color-accent-bg-hover: var(--gh-accent-bg-hover);
-
-  /* hover / focus 系の transition を全体的に「ふわっと」した質感にする。
-     UI 業界で hover transition の duration は 150-300ms に集中しており、
-     200ms はその中央付近で機械的すぎず・遅すぎない値 (Material Design では
-     "short4" 帯に該当)。Tailwind v4 では `transition-*` ユーティリティが
-     これらの変数を参照するため、個別コンポーネントへの duration-* / ease-*
-     追加無しで全体の interaction 感を 1 箇所で管理できる。 */
-  --default-transition-duration: 200ms;
-  --default-transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 html,
@@ -73,7 +64,8 @@ body {
    ボタンの出現は :placeholder-shown 擬似クラスで制御:
    input 空 (placeholder 表示中) → opacity 0 + pointer-events none で完全に隠す
    input に値あり (placeholder 非表示) → opacity 1 にフェードイン
-   transition は他の interaction と同じ 200ms ease-out で揃える。 */
+   transition は Tailwind の `transition-*` ユーティリティと同じ
+   --default-transition-* を参照することで他の interaction と揃える。 */
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;

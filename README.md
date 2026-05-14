@@ -52,7 +52,7 @@ cp .env.example .env.local
 
 ### interaction の細部に質感を持たせる
 
-UX 面では「機械的な切り替えを排して、操作のリズムを統一する」ことに気を配りました。Tailwind v4 のデフォルト 150ms より少し長い 200ms ease-out を全 hover / focus interaction に統一し、`group-hover` で子要素を変える箇所では子側にも `transition` を付与して親子のリズムが同じになるようにしています。ローディング中のスケルトンは実コンテンツと高さを揃えて Cumulative Layout Shift をゼロに近づけ、URL から `q` を取って input にクエリを保持することで遷移時に入力欄が一瞬空になる違和感も消しました。検索 input のネイティブ × ボタンは WebKit のデフォルトだと dark モードで視認性が落ちるため、Primer の x-icon を mask-image でカスタム描画し、`:placeholder-shown` を使った opacity フェードまで含めて他の interaction と同じリズムで動くようにしています。一つひとつは小さい配慮ですが、「気を配って作った」という体感はこういう積み重ねから生まれると考えています。
+UX 面では「機械的な切り替えを排して、操作のリズムを統一する」ことに気を配りました。`group-hover` で子要素を変える箇所では子側にも `transition` を付与して親子のリズムが同じになるようにし、ローディング中のスケルトンは実コンテンツと高さを揃えて Cumulative Layout Shift をゼロに近づけ、URL から `q` を取って input にクエリを保持することで遷移時に入力欄が一瞬空になる違和感も消しました。検索 input のネイティブ × ボタンは WebKit のデフォルトだと dark モードで視認性が落ちるため、Primer の x-icon を mask-image でカスタム描画し、`:placeholder-shown` を使った opacity フェードまで含めて他の interaction と同じリズムで動くようにしています。一つひとつは小さい配慮ですが、「気を配って作った」という体感はこういう積み重ねから生まれると考えています。
 
 ### ライブラリ選定はドメインと規模で決める
 
