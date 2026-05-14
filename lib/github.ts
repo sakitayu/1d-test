@@ -75,6 +75,7 @@ export async function searchRepositories(q: string, page = 1): Promise<SearchRes
 
   const res = await githubFetch(url);
   if (!res.ok) throw await toDomainError(res, `search:${q}`);
+
   const json = (await res.json()) as SearchRepositoriesResponse;
   return {
     items: json.items,
@@ -87,6 +88,7 @@ export async function getRepository(owner: string, repo: string): Promise<Reposi
   const url = new URL(`/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`, API_BASE);
   const res = await githubFetch(url);
   if (!res.ok) throw await toDomainError(res, `${owner}/${repo}`);
+
   const data = (await res.json()) as RepositoryDetail;
   return {
     data,

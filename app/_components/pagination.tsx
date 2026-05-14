@@ -34,6 +34,7 @@ export function Pagination({ q, currentPage, totalCount }: Props) {
 
 function hrefFor(q: string, page: number | null): string | null {
   if (page === null) return null;
+
   const params = new URLSearchParams({ q });
   if (page !== 1) params.set('page', String(page));
   return `/?${params.toString()}`;

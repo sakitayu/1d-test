@@ -38,5 +38,6 @@ function pickFirst(value: string | string[] | undefined): string {
 function clampPage(raw: string): number {
   const n = Number.parseInt(raw, 10);
   if (!Number.isFinite(n) || n < 1) return 1;
+
   return Math.min(n, PAGE_MAX);
 }
