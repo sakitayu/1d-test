@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { RateLimitBanner } from './rate-limit-banner';
 
 describe('<RateLimitBanner />', () => {
-  it('shows search-api label, absolute reset time, and remaining minutes', () => {
+  it('検索 API ラベル / 絶対 reset 時刻 / 残り分数を表示する', () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2026-05-09T12:00:00Z'));
     const reset = Math.floor(new Date('2026-05-09T12:05:00Z').getTime() / 1000);
@@ -15,7 +15,7 @@ describe('<RateLimitBanner />', () => {
     vi.useRealTimers();
   });
 
-  it('falls back to "まもなく解除" when reset is in the past', () => {
+  it('reset が過去の場合は "まもなく解除" にフォールバックする', () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2026-05-09T12:00:00Z'));
     const reset = Math.floor(new Date('2026-05-09T11:55:00Z').getTime() / 1000);

@@ -5,7 +5,7 @@ import { expect, test } from '@playwright/test';
 // 設定していれば認証クォータが使われ、本テストの golden path を 1 周回す程度の
 // API 消費なら問題なく収まる。
 
-test('search → list → detail → back', async ({ page }) => {
+test('検索 → 一覧 → 詳細 → 戻る', async ({ page }) => {
   await page.goto('/');
 
   await expect(page.getByLabel('リポジトリを検索')).toBeVisible();

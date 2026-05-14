@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { RepoStats } from './repo-stats';
 
 describe('<RepoStats />', () => {
-  it('renders all four metrics with Intl.NumberFormat formatting', () => {
+  it('4 つの統計値を Intl.NumberFormat でフォーマットして描画する', () => {
     render(<RepoStats stargazers={244917} watchers={6629} forks={51011} openIssues={1288} />);
     expect(screen.getByText('Star')).toBeInTheDocument();
     expect(screen.getByText('Watcher')).toBeInTheDocument();

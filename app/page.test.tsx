@@ -20,15 +20,15 @@ function makeSearchParams(input: Record<string, string>) {
   return Promise.resolve(input);
 }
 
-describe('<Page /> (search)', () => {
-  it('renders only the form when no q is provided (no API call)', async () => {
+describe('<Page /> (検索ページ)', () => {
+  it('q が無い場合はフォームのみ描画し API を呼ばない', async () => {
     const ui = await Page({ searchParams: makeSearchParams({}) });
     render(ui);
     expect(screen.getByLabelText('リポジトリを検索')).toBeInTheDocument();
     expect(github.searchRepositories).not.toHaveBeenCalled();
   });
 
-  it('shows QueryErrorBanner for q > 256 chars and skips the API call', async () => {
+  it('q が 256 文字を超える場合は QueryErrorBanner を出し API を呼ばない', async () => {
     const longQ = 'x'.repeat(300);
     const ui = await Page({ searchParams: makeSearchParams({ q: longQ }) });
     render(ui);
@@ -36,7 +36,7 @@ describe('<Page /> (search)', () => {
     expect(github.searchRepositories).not.toHaveBeenCalled();
   });
 
-  it('renders the result list when the API returns items', async () => {
+  it('API が items を返した場合は結果一覧を描画する', async () => {
     vi.mocked(github.searchRepositories).mockResolvedValue({
       items: searchFixture.items as github.SearchResult['items'],
       totalCount: searchFixture.total_count,
@@ -48,7 +48,7 @@ describe('<Page /> (search)', () => {
     expect(github.searchRepositories).toHaveBeenCalledWith('react', 1);
   });
 
-  it('renders <EmptyState /> when items is empty (and not an alert)', async () => {
+  it('items が空の場合は <EmptyState /> を描画する (alert ではない)', async () => {
     vi.mocked(github.searchRepositories).mockResolvedValue({
       items: [],
       totalCount: 0,
@@ -60,7 +60,7 @@ describe('<Page /> (search)', () => {
     expect(screen.queryByRole('alert')).toBeNull();
   });
 
-  it('renders <RateLimitBanner /> instead of throwing when RateLimitError is raised', async () => {
+  it('RateLimitError 発生時は throw せず <RateLimitBanner /> を描画する', async () => {
     vi.mocked(github.searchRepositories).mockRejectedValue(
       new github.RateLimitError(Math.floor(Date.now() / 1000) + 120, 'search'),
     );
@@ -70,7 +70,7 @@ describe('<Page /> (search)', () => {
     expect(screen.getByText(/検索 API/)).toBeInTheDocument();
   });
 
-  it('lets non-RateLimitError errors propagate so error.tsx can handle them', async () => {
+  it('RateLimitError 以外はそのまま伝播させて error.tsx に委ねる', async () => {
     vi.mocked(github.searchRepositories).mockRejectedValue(new github.GitHubApiError(500, 'boom'));
     await expect(Page({ searchParams: makeSearchParams({ q: 'react' }) })).rejects.toBeInstanceOf(
       github.GitHubApiError,

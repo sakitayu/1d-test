@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('next page navigates with ?q=&page=2', async ({ page }) => {
+test('「次へ」で ?q=&page=2 に遷移する', async ({ page }) => {
   await page.goto('/?q=react');
 
   await expect(page.getByText(/1 \/ \d+/)).toBeVisible();

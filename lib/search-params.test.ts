@@ -2,15 +2,15 @@ import { describe, expect, it } from 'vitest';
 import { PAGE_MAX, parseSearchParams, Q_MAX } from './search-params';
 
 describe('parseSearchParams', () => {
-  it('returns empty when q is missing', () => {
+  it('q が無い場合は empty を返す', () => {
     expect(parseSearchParams({})).toEqual({ kind: 'empty', page: 1 });
   });
 
-  it('returns empty when q is whitespace only', () => {
+  it('q が空白のみの場合は empty を返す', () => {
     expect(parseSearchParams({ q: '   ' })).toEqual({ kind: 'empty', page: 1 });
   });
 
-  it('trims surrounding whitespace from q', () => {
+  it('q 前後の空白を trim する', () => {
     expect(parseSearchParams({ q: '  react  ' })).toEqual({
       kind: 'valid',
       q: 'react',
@@ -18,12 +18,12 @@ describe('parseSearchParams', () => {
     });
   });
 
-  it('accepts q at exactly 256 characters', () => {
+  it('q がちょうど 256 文字なら valid として受け入れる', () => {
     const q = 'a'.repeat(Q_MAX);
     expect(parseSearchParams({ q })).toEqual({ kind: 'valid', q, page: 1 });
   });
 
-  it('rejects q at 257 characters as too_long', () => {
+  it('q が 257 文字なら too_long として拒否する', () => {
     const q = 'a'.repeat(Q_MAX + 1);
     expect(parseSearchParams({ q })).toEqual({
       kind: 'invalid',
@@ -33,26 +33,26 @@ describe('parseSearchParams', () => {
     });
   });
 
-  it('clamps page=0 to 1', () => {
+  it('page=0 は 1 にクランプする', () => {
     expect(parseSearchParams({ q: 'react', page: '0' })).toMatchObject({ page: 1 });
   });
 
-  it('clamps page beyond PAGE_MAX', () => {
+  it('PAGE_MAX を超える page をクランプする', () => {
     expect(parseSearchParams({ q: 'react', page: '99' })).toMatchObject({ page: PAGE_MAX });
   });
 
-  it('falls back to page=1 for non-numeric input', () => {
+  it('数値以外の page は 1 にフォールバックする', () => {
     expect(parseSearchParams({ q: 'react', page: 'abc' })).toMatchObject({ page: 1 });
   });
 
-  it('uses the first element when q arrives as string[]', () => {
+  it('q が string[] で来た場合は先頭要素を使う', () => {
     expect(parseSearchParams({ q: ['react', 'vue'] })).toMatchObject({
       kind: 'valid',
       q: 'react',
     });
   });
 
-  it('uses the first element when page arrives as string[]', () => {
+  it('page が string[] で来た場合は先頭要素を使う', () => {
     expect(parseSearchParams({ q: 'react', page: ['2', '3'] })).toMatchObject({ page: 2 });
   });
 });

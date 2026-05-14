@@ -28,8 +28,8 @@ function makeParams(owner: string, repo: string) {
   return Promise.resolve({ owner, repo });
 }
 
-describe('<Page /> (detail)', () => {
-  it('renders name, description, language, stats, and html_url link on success', async () => {
+describe('<Page /> (詳細ページ)', () => {
+  it('成功時に name / description / language / 統計 / html_url リンクを描画する', async () => {
     vi.mocked(github.getRepository).mockResolvedValue({
       data: repoFixture as github.RepositoryResult['data'],
       rateLimit: null,
@@ -49,13 +49,13 @@ describe('<Page /> (detail)', () => {
     expect(external).toHaveAttribute('href', 'https://github.com/facebook/react');
   });
 
-  it('calls notFound() when getRepository throws NotFoundError', async () => {
+  it('getRepository が NotFoundError を throw した場合は notFound() を呼ぶ', async () => {
     vi.mocked(github.getRepository).mockRejectedValue(new github.NotFoundError('foo/bar'));
     await expect(Page({ params: makeParams('foo', 'bar') })).rejects.toThrow('NEXT_NOT_FOUND');
     expect(nav.notFound).toHaveBeenCalled();
   });
 
-  it('renders <RateLimitBanner /> on RateLimitError instead of throwing', async () => {
+  it('RateLimitError 発生時は throw せず <RateLimitBanner /> を描画する', async () => {
     vi.mocked(github.getRepository).mockRejectedValue(
       new github.RateLimitError(Math.floor(Date.now() / 1000) + 300, 'core'),
     );
@@ -65,7 +65,7 @@ describe('<Page /> (detail)', () => {
     expect(screen.getByText(/GitHub REST API/)).toBeInTheDocument();
   });
 
-  it('lets generic GitHubApiError propagate to error.tsx', async () => {
+  it('一般的な GitHubApiError は error.tsx まで伝播させる', async () => {
     vi.mocked(github.getRepository).mockRejectedValue(new github.GitHubApiError(500, 'boom'));
     await expect(Page({ params: makeParams('facebook', 'react') })).rejects.toBeInstanceOf(
       github.GitHubApiError,

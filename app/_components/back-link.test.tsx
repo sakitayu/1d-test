@@ -14,14 +14,14 @@ afterEach(() => {
 });
 
 describe('<BackLink />', () => {
-  it('calls router.back() when there is history (JS on, came from search)', async () => {
+  it('履歴がある場合は router.back() を呼ぶ (JS on で検索から遷移してきた状況)', async () => {
     Object.defineProperty(window, 'history', { value: { length: 3 }, configurable: true });
     render(<BackLink>戻る</BackLink>);
     await userEvent.click(screen.getByRole('link', { name: '戻る' }));
     expect(back).toHaveBeenCalledTimes(1);
   });
 
-  it('falls through to href="/" when there is no history (deep link)', async () => {
+  it('履歴が無い場合は href="/" にフォールスルーする (deep link)', async () => {
     Object.defineProperty(window, 'history', { value: { length: 1 }, configurable: true });
     render(<BackLink>戻る</BackLink>);
     const link = screen.getByRole('link', { name: '戻る' });

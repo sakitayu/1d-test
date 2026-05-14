@@ -29,7 +29,7 @@ afterEach(() => {
 });
 
 describe('searchRepositories', () => {
-  it('parses items, totalCount and rate-limit headers from a successful response', async () => {
+  it('成功応答から items / totalCount / rate-limit ヘッダをパースする', async () => {
     const fetchSpy = mockFetch(
       new Response(JSON.stringify(searchFixture), {
         status: 200,
@@ -62,7 +62,7 @@ describe('searchRepositories', () => {
     expect(init.next).toEqual({ revalidate: 60 });
   });
 
-  it('throws RateLimitError on 403 + x-ratelimit-remaining: 0', async () => {
+  it('403 + x-ratelimit-remaining: 0 で RateLimitError を throw する', async () => {
     mockFetch(
       new Response('{"message":"rate limited"}', { status: 403, headers: ratelimitedHeaders() }),
     );
@@ -75,7 +75,7 @@ describe('searchRepositories', () => {
     }
   });
 
-  it('throws GitHubApiError on 5xx', async () => {
+  it('5xx で GitHubApiError を throw する', async () => {
     mockFetch(
       new Response('{"message":"server boom"}', {
         status: 500,
@@ -85,7 +85,7 @@ describe('searchRepositories', () => {
     await expect(searchRepositories('react', 1)).rejects.toBeInstanceOf(GitHubApiError);
   });
 
-  it('falls back to status text if the body is not JSON', async () => {
+  it('body が JSON でない場合は status text にフォールバックする', async () => {
     mockFetch(new Response('not json at all', { status: 502 }));
     await expect(searchRepositories('react', 1)).rejects.toMatchObject({
       name: 'GitHubApiError',
@@ -93,7 +93,7 @@ describe('searchRepositories', () => {
     });
   });
 
-  it('omits the Authorization header when GITHUB_TOKEN is unset', async () => {
+  it('GITHUB_TOKEN 未設定時は Authorization ヘッダを付けない', async () => {
     const original = process.env.GITHUB_TOKEN;
     process.env.GITHUB_TOKEN = '';
     vi.resetModules();
@@ -110,7 +110,7 @@ describe('searchRepositories', () => {
 });
 
 describe('getRepository', () => {
-  it('returns RepositoryDetail with subscribers_count', async () => {
+  it('subscribers_count を含む RepositoryDetail を返す', async () => {
     mockFetch(
       new Response(JSON.stringify(repoFixture), {
         status: 200,
@@ -129,12 +129,12 @@ describe('getRepository', () => {
     expect(result.rateLimit?.resource).toBe('core');
   });
 
-  it('throws NotFoundError on 404', async () => {
+  it('404 で NotFoundError を throw する', async () => {
     mockFetch(new Response('{"message":"Not Found"}', { status: 404 }));
     await expect(getRepository('nope', 'nope')).rejects.toBeInstanceOf(NotFoundError);
   });
 
-  it('encodes owner and repo segments', async () => {
+  it('owner / repo セグメントを URL エンコードする', async () => {
     const fetchSpy = mockFetch(new Response(JSON.stringify(repoFixture), { status: 200 }));
     await getRepository('owner with space', 'repo/with-slash');
     const url = fetchSpy.mock.calls[0]?.[0] as URL;

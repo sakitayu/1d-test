@@ -5,7 +5,7 @@ import { expect, test } from '@playwright/test';
 // (ブラウザ自体は通常通りサーバへリクエストを送るが、サーバ側で API 呼び出しを
 //  短絡することで API クォータを無駄に消費しないための保護線)
 
-test('a 257-char query shows the validation banner without calling the API', async ({ page }) => {
+test('257 文字のクエリでバリデーションバナーが出て API は呼ばれない', async ({ page }) => {
   const longQ = 'a'.repeat(257);
   await page.goto(`/?q=${longQ}`);
 
