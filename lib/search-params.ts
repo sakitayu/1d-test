@@ -26,12 +26,14 @@ export function parseSearchParams(input: {
 
   if (q === '') return { kind: 'empty', page };
   if (q.length > Q_MAX) return { kind: 'invalid', q, page, error: 'too_long' };
+
   return { kind: 'valid', q, page };
 }
 
 function pickFirst(value: string | string[] | undefined): string {
   if (typeof value === 'string') return value;
   if (Array.isArray(value) && typeof value[0] === 'string') return value[0];
+
   return '';
 }
 
