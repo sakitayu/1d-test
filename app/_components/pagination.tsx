@@ -9,7 +9,6 @@ type Props = {
 };
 
 export function Pagination({ q, currentPage, totalCount }: Props) {
-  // GitHub Search API は結果を最大 1,000 件に制限しているため、最終ページを 34 にクランプ
   const lastPage = Math.min(Math.ceil(totalCount / PER_PAGE), PAGE_MAX);
   if (lastPage <= 1) return null;
 
