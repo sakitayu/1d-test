@@ -1,11 +1,14 @@
 // URL searchParams (string-or-string[]) を検証済み入力に変換する純粋関数。
 // Next.js / React の import を含めないため、ユニットテストや他環境での再利用が容易。
 //
-// GitHub Search API の制約をここに集約:
-// - クエリ文字列は最大 256 文字 (演算子・修飾子を除く)
-// - 検索結果は document 上「最大 1,000 件」。実 API は per_page=30 の場合
-//   page=34 まで応答を返し (位置 991-1020 を含む 30 件)、page=35 以降は
-//   422 "Only the first 1000 search results are available" で拒否する
+// GitHub Search API の制約をここに集約。
+// 公式 docs: https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28
+//
+// - クエリ文字列は最大 256 文字 (演算子・修飾子を除く) ← 公式 docs 記載
+// - 検索結果は公式 docs 上「最大 1,000 件」と明記。実 API は per_page=30
+//   の場合 page=34 まで応答を返し (位置 991-1020 を含む 30 件)、page=35
+//   以降は 422 "Only the first 1000 search results are available" で拒否
+//   する (page 境界の挙動は本リポジトリで curl 検証した観測値)
 
 export const Q_MAX = 256;
 export const PER_PAGE = 30;
