@@ -15,8 +15,12 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { owner, repo } = await params;
+  // 文字列で title を返すと layout.tsx の title.template
+  // ('%s · GitHub Repository Search') が適用され、最終的には
+  // 「owner/repo · GitHub Repository Search」になる。サイト名の付与は
+  // layout 側に集約することで DRY を保つ。
   return {
-    title: `${owner}/${repo} — GitHub Repository Search`,
+    title: `${owner}/${repo}`,
   };
 }
 
