@@ -26,9 +26,10 @@ test('検索 → 一覧 → 詳細 → 戻る', async ({ page }) => {
   await page.waitForURL(/\/[^/?]+\/[^/?]+$/);
 
   // 詳細ページに 4 つの統計ラベルが表示されることを確認。
-  // RepoCard には sr-only "Star" 等が含まれており getByText('Star') だと
-  // strict mode で衝突するため、RepoStats 内にしか存在しない <dt> 要素に
-  // 絞ってマッチさせる
+  // RepoCard には sr-only "Star" が含まれており (Watcher/Fork/Issue は
+  // RepoCard には存在せず詳細ページに集約されている)、getByText('Star')
+  // だと strict mode で衝突する。一貫した書き方として 4 ラベル全てを
+  // RepoStats の <dt> 要素に絞ってマッチさせる
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   for (const label of ['Star', 'Watcher', 'Fork', 'Issue']) {
     await expect(page.locator('dt').filter({ hasText: label })).toBeVisible();
