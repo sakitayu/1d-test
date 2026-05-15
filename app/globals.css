@@ -4,10 +4,17 @@
    light / dark の値は prefers-color-scheme で同時に切り替わるため、
    utility (bg-canvas, text-accent 等) は dark: variant 無しで自動追従する。 */
 :root {
-  /* Surface: canvas (body) < overlay (header/footer) < card (elevated)
-     light mode では全て白で、視覚的な区別は border に委ねる。 */
+  /* Surface 階層 (recessed → base → elevated):
+       overlay (header/footer)  ← 沈み込んだ印象
+       canvas  (body)           ← 基準
+       card    (elevated)       ← 浮き上がった印象
+     light mode では overlay を僅かにグレー (#f6f8fa = GitHub Primer
+     canvas.subtle) にして header/footer の沈み込みを表現。card は body
+     と同じ白 (#ffffff) のままで、border + shadow で elevation を表現する
+     (light mode の elevation 表現としては GitHub Primer / Material Design
+     どちらでも採用される標準パターン)。 */
   --gh-canvas: #ffffff;
-  --gh-overlay: #ffffff;
+  --gh-overlay: #f6f8fa;
   --gh-card: #ffffff;
 
   /* Accent: GitHub Primer の accent.fg = link 色 / accent.emphasis = button bg。
