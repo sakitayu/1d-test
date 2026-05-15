@@ -35,5 +35,6 @@ test('検索 → 一覧 → 詳細 → 戻る', async ({ page }) => {
   }
 
   await page.goBack();
+
   await expect(page).toHaveURL(/\?q=react/);
 });

@@ -42,7 +42,9 @@ describe('searchRepositories', () => {
         },
       }),
     );
+
     const result = await searchRepositories('react', 1);
+
     expect(result.totalCount).toBe(searchFixture.total_count);
     expect(result.items.length).toBe(searchFixture.items.length);
     expect(result.rateLimit).toEqual({
@@ -53,11 +55,14 @@ describe('searchRepositories', () => {
     });
 
     const calledUrl = fetchSpy.mock.calls[0]?.[0] as URL;
+
     expect(calledUrl.toString()).toContain('/search/repositories');
     expect(calledUrl.searchParams.get('q')).toBe('react');
     expect(calledUrl.searchParams.get('per_page')).toBe('30');
     expect(calledUrl.searchParams.get('sort')).toBe('stars');
+
     const init = fetchSpy.mock.calls[0]?.[1] as RequestInit & { next?: unknown };
+
     expect((init.headers as Record<string, string>).Authorization).toMatch(/^Bearer /);
     expect(init.next).toEqual({ revalidate: 60 });
   });
@@ -66,6 +71,7 @@ describe('searchRepositories', () => {
     mockFetch(
       new Response('{"message":"rate limited"}', { status: 403, headers: ratelimitedHeaders() }),
     );
+
     await expect(searchRepositories('react', 1)).rejects.toBeInstanceOf(RateLimitError);
     try {
       await searchRepositories('react', 1);
@@ -82,11 +88,13 @@ describe('searchRepositories', () => {
         headers: { 'content-type': 'application/json' },
       }),
     );
+
     await expect(searchRepositories('react', 1)).rejects.toBeInstanceOf(GitHubApiError);
   });
 
   it('body が JSON でない場合は status text にフォールバックする', async () => {
     mockFetch(new Response('not json at all', { status: 502 }));
+
     await expect(searchRepositories('react', 1)).rejects.toMatchObject({
       name: 'GitHubApiError',
       status: 502,
@@ -101,7 +109,9 @@ describe('searchRepositories', () => {
     const fetchSpy = vi
       .spyOn(globalThis, 'fetch')
       .mockResolvedValue(new Response(JSON.stringify(searchFixture), { status: 200 }));
+
     await reloaded.searchRepositories('react', 1);
+
     const init = fetchSpy.mock.calls[0]?.[1] as RequestInit;
     expect((init.headers as Record<string, string>).Authorization).toBeUndefined();
     process.env.GITHUB_TOKEN = original;
@@ -123,7 +133,9 @@ describe('getRepository', () => {
         },
       }),
     );
+
     const result = await getRepository('facebook', 'react');
+
     expect(result.data.full_name).toBe('facebook/react');
     expect(result.data.subscribers_count).toBe(repoFixture.subscribers_count);
     expect(result.rateLimit?.resource).toBe('core');
@@ -131,12 +143,15 @@ describe('getRepository', () => {
 
   it('404 で NotFoundError を throw する', async () => {
     mockFetch(new Response('{"message":"Not Found"}', { status: 404 }));
+
     await expect(getRepository('nope', 'nope')).rejects.toBeInstanceOf(NotFoundError);
   });
 
   it('owner / repo セグメントを URL エンコードする', async () => {
     const fetchSpy = mockFetch(new Response(JSON.stringify(repoFixture), { status: 200 }));
+
     await getRepository('owner with space', 'repo/with-slash');
+
     const url = fetchSpy.mock.calls[0]?.[0] as URL;
     expect(url.pathname).toBe('/repos/owner%20with%20space/repo%2Fwith-slash');
   });

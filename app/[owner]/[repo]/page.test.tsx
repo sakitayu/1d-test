@@ -51,6 +51,7 @@ describe('<Page /> (詳細ページ)', () => {
 
   it('getRepository が NotFoundError を throw した場合は notFound() を呼ぶ', async () => {
     vi.mocked(github.getRepository).mockRejectedValue(new github.NotFoundError('foo/bar'));
+
     await expect(Page({ params: makeParams('foo', 'bar') })).rejects.toThrow('NEXT_NOT_FOUND');
     expect(nav.notFound).toHaveBeenCalled();
   });
@@ -61,12 +62,14 @@ describe('<Page /> (詳細ページ)', () => {
     );
     const ui = await Page({ params: makeParams('facebook', 'react') });
     render(ui);
+
     expect(screen.getByRole('alert')).toBeInTheDocument();
     expect(screen.getByText(/GitHub REST API/)).toBeInTheDocument();
   });
 
   it('一般的な GitHubApiError は error.tsx まで伝播させる', async () => {
     vi.mocked(github.getRepository).mockRejectedValue(new github.GitHubApiError(500, 'boom'));
+
     await expect(Page({ params: makeParams('facebook', 'react') })).rejects.toBeInstanceOf(
       github.GitHubApiError,
     );

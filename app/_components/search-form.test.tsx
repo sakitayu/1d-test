@@ -5,6 +5,7 @@ import { SearchForm } from './search-form';
 describe('<SearchForm />', () => {
   it('GET / の form を描画する (JS 無しでもブラウザが submit を処理できる)', () => {
     const { container } = render(<SearchForm />);
+
     const form = container.querySelector('form');
     expect(form).not.toBeNull();
     expect(form?.getAttribute('action')).toBe('/');
@@ -13,11 +14,13 @@ describe('<SearchForm />', () => {
 
   it('form を <search> ランドマークで包む (支援技術向け)', () => {
     const { container } = render(<SearchForm />);
+
     expect(container.querySelector('search > form')).not.toBeNull();
   });
 
   it('initialQuery を defaultValue として使う (URL 経由で submit 後も再充填される)', () => {
     render(<SearchForm initialQuery="react" />);
+
     const input = screen.getByLabelText('リポジトリを検索') as HTMLInputElement;
     expect(input.defaultValue).toBe('react');
     expect(input.getAttribute('name')).toBe('q');
@@ -25,6 +28,7 @@ describe('<SearchForm />', () => {
 
   it('name="q" で submit して URL を /?q=... にする', () => {
     render(<SearchForm />);
+
     const input = screen.getByLabelText('リポジトリを検索');
     expect(input.getAttribute('name')).toBe('q');
   });

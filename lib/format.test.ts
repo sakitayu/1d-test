@@ -14,6 +14,7 @@ describe('formatRelativeTime', () => {
 
   it('過去の日付に "n 日前" を返す', () => {
     const target = new Date('2026-05-06T12:00:00Z');
+
     expect(formatRelativeTime(target, now)).toBe('3 日前');
   });
 
@@ -21,6 +22,7 @@ describe('formatRelativeTime', () => {
     // `numeric: 'auto'` はゼロ近傍でロケールに応じた表現 (「今」「今日」等) を返す。
     // ここではクラッシュせず文字列が返ることだけ assert する。
     const result = formatRelativeTime(new Date(now.getTime() - 100), now);
+
     expect(typeof result).toBe('string');
     expect(result.length).toBeGreaterThan(0);
   });
@@ -37,17 +39,20 @@ describe('formatRateLimitReset', () => {
 
   it('絶対時刻 HH:MM と残り分数を返す', () => {
     const result = formatRateLimitReset(nowUnix + 5 * 60, now);
+
     expect(result.absolute).toMatch(/^\d{2}:\d{2}$/);
     expect(result.relativeMinutes).toBe(5);
   });
 
   it('過去の reset は 0 分にクランプする (負値の表示を防ぐ)', () => {
     const result = formatRateLimitReset(nowUnix - 60, now);
+
     expect(result.relativeMinutes).toBe(0);
   });
 
   it('端数の分は切り上げる (制限中に "0 分" 表示にならない)', () => {
     const result = formatRateLimitReset(nowUnix + 30, now);
+
     expect(result.relativeMinutes).toBe(1);
   });
 });

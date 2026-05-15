@@ -20,11 +20,13 @@ describe('parseSearchParams', () => {
 
   it('q がちょうど 256 文字なら valid として受け入れる', () => {
     const q = 'a'.repeat(Q_MAX);
+
     expect(parseSearchParams({ q })).toEqual({ kind: 'valid', q, page: 1 });
   });
 
   it('q が 257 文字なら too_long として拒否する', () => {
     const q = 'a'.repeat(Q_MAX + 1);
+
     expect(parseSearchParams({ q })).toEqual({
       kind: 'invalid',
       q,

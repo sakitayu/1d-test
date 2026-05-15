@@ -9,6 +9,7 @@ describe('<RateLimitBanner />', () => {
     const reset = Math.floor(new Date('2026-05-09T12:05:00Z').getTime() / 1000);
 
     render(<RateLimitBanner reset={reset} resource="search" />);
+
     expect(screen.getByRole('alert')).toBeInTheDocument();
     expect(screen.getByText(/検索 API/)).toBeInTheDocument();
     expect(screen.getByText(/残り約 5 分/)).toBeInTheDocument();
@@ -21,6 +22,7 @@ describe('<RateLimitBanner />', () => {
     const reset = Math.floor(new Date('2026-05-09T11:55:00Z').getTime() / 1000);
 
     render(<RateLimitBanner reset={reset} resource="core" />);
+
     expect(screen.getByText(/まもなく解除/)).toBeInTheDocument();
     expect(screen.getByText(/GitHub REST API/)).toBeInTheDocument();
     vi.useRealTimers();

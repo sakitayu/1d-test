@@ -17,7 +17,9 @@ describe('<BackLink />', () => {
   it('履歴がある場合は router.back() を呼ぶ (JS on で検索から遷移してきた状況)', async () => {
     Object.defineProperty(window, 'history', { value: { length: 3 }, configurable: true });
     render(<BackLink>戻る</BackLink>);
+
     await userEvent.click(screen.getByRole('link', { name: '戻る' }));
+
     expect(back).toHaveBeenCalledTimes(1);
   });
 
@@ -25,8 +27,11 @@ describe('<BackLink />', () => {
     Object.defineProperty(window, 'history', { value: { length: 1 }, configurable: true });
     render(<BackLink>戻る</BackLink>);
     const link = screen.getByRole('link', { name: '戻る' });
+
     expect(link.getAttribute('href')).toBe('/');
+
     await userEvent.click(link);
+
     expect(back).not.toHaveBeenCalled();
   });
 });

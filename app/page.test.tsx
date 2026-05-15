@@ -24,6 +24,7 @@ describe('<Page /> (検索ページ)', () => {
   it('q が無い場合はフォームのみ描画し API を呼ばない', async () => {
     const ui = await Page({ searchParams: makeSearchParams({}) });
     render(ui);
+
     expect(screen.getByLabelText('リポジトリを検索')).toBeInTheDocument();
     expect(github.searchRepositories).not.toHaveBeenCalled();
   });
@@ -32,6 +33,7 @@ describe('<Page /> (検索ページ)', () => {
     const longQ = 'x'.repeat(300);
     const ui = await Page({ searchParams: makeSearchParams({ q: longQ }) });
     render(ui);
+
     expect(screen.getByRole('alert')).toBeInTheDocument();
     expect(github.searchRepositories).not.toHaveBeenCalled();
   });
@@ -44,6 +46,7 @@ describe('<Page /> (検索ページ)', () => {
     });
     const ui = await Page({ searchParams: makeSearchParams({ q: 'react' }) });
     render(ui);
+
     expect(screen.getAllByRole('link')).not.toHaveLength(0);
     expect(github.searchRepositories).toHaveBeenCalledWith('react', 1);
   });
@@ -56,6 +59,7 @@ describe('<Page /> (検索ページ)', () => {
     });
     const ui = await Page({ searchParams: makeSearchParams({ q: 'zzznosuchrepo' }) });
     render(ui);
+
     expect(screen.getByText('該当するリポジトリが見つかりませんでした')).toBeInTheDocument();
     expect(screen.queryByRole('alert')).toBeNull();
   });
@@ -66,12 +70,14 @@ describe('<Page /> (検索ページ)', () => {
     );
     const ui = await Page({ searchParams: makeSearchParams({ q: 'react' }) });
     render(ui);
+
     expect(screen.getByRole('alert')).toBeInTheDocument();
     expect(screen.getByText(/検索 API/)).toBeInTheDocument();
   });
 
   it('RateLimitError 以外はそのまま伝播させて error.tsx に委ねる', async () => {
     vi.mocked(github.searchRepositories).mockRejectedValue(new github.GitHubApiError(500, 'boom'));
+
     await expect(Page({ searchParams: makeSearchParams({ q: 'react' }) })).rejects.toBeInstanceOf(
       github.GitHubApiError,
     );
