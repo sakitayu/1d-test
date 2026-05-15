@@ -11,9 +11,14 @@
 // 一瞬空になり placeholder が表示されてしまい、結果到着時に再度クエリが
 // 戻る挙動になって視覚的に違和感が出る。
 //
-// useSearchParams() は Next.js のルールにより Suspense 境界が必須
-// (`/_not-found` の static prerender 時に bail out できないと build エラー)
-// のため、QueryAwareSearchForm に切り出して <Suspense> でラップしている。
+// useSearchParams() は Next.js のルールにより Suspense 境界が必須。
+// 公式 docs 記載: 静的 prerender されるページで <Suspense> wrap して
+// いないと production build が失敗する。本アプリでは `/_not-found`
+// (Next.js が自動生成する 404 ルート) の prerender 過程で本制約に
+// 当たって build error が出るため (公式 docs に直接記載なし、観察値)、
+// QueryAwareSearchForm に切り出して <Suspense> でラップしている。
+// - https://nextjs.org/docs/app/api-reference/functions/use-search-params
+// - https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
 
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
