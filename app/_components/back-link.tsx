@@ -8,7 +8,7 @@
 //     より UX が良い
 //   - JS on, 履歴なし (深いリンク / 新規タブ) → href の "/" へフォールバック
 //
-// 表示テキストやアイコンは consumer (children prop) 側で決める。
+// 表示テキストやアイコンは呼び出し側 (children prop) で決める。
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
