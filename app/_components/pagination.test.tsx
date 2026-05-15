@@ -25,7 +25,7 @@ describe('<Pagination />', () => {
     expect(prev?.getAttribute('href')).toBe('/?q=react');
   });
 
-  it('totalCount が 1,000 件を超える場合は最終ページを 34 にクランプする (Search API hard cap)', () => {
+  it('totalCount が 1,000 件を超える場合は最終ページを 34 で頭打ちにする (Search API hard cap)', () => {
     render(<Pagination q="react" currentPage={34} totalCount={6_000_000} />);
 
     expect(screen.getByText('34 / 34')).toBeInTheDocument();

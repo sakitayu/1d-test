@@ -35,11 +35,11 @@ describe('parseSearchParams', () => {
     });
   });
 
-  it('page=0 は 1 にクランプする', () => {
+  it('page=0 は 1 に補正する', () => {
     expect(parseSearchParams({ q: 'react', page: '0' })).toMatchObject({ page: 1 });
   });
 
-  it('PAGE_MAX を超える page をクランプする', () => {
+  it('PAGE_MAX を超える page を PAGE_MAX に丸める', () => {
     expect(parseSearchParams({ q: 'react', page: '99' })).toMatchObject({ page: PAGE_MAX });
   });
 

@@ -45,7 +45,7 @@ export function formatRateLimitReset(
 ): RateLimitResetFormatted {
   const reset = new Date(resetUnix * 1000);
   const diffMs = reset.getTime() - now.getTime();
-  // 過去の reset 時刻が来た場合に「あと -3 分」と表示されないよう 0 にクランプ
+  // 過去の reset 時刻が来た場合に「あと -3 分」と表示されないよう 0 に丸める
   const relativeMinutes = Math.max(0, Math.ceil(diffMs / 60_000));
   return {
     absolute: timeFormatter.format(reset),

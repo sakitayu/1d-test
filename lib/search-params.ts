@@ -9,7 +9,7 @@
 
 export const Q_MAX = 256;
 export const PER_PAGE = 30;
-export const PAGE_MAX = 34; // ceil(1000 / 30) = 34。page=35 で 422 になるため、UI 側はこの値で先回りクランプ
+export const PAGE_MAX = 34; // ceil(1000 / 30) = 34。page=35 で 422 になるため、UI 側はこの値で先回り頭打ちにする
 
 export type ParsedSearchParams =
   | { kind: 'empty'; page: number }

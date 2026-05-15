@@ -44,7 +44,7 @@ describe('formatRateLimitReset', () => {
     expect(result.relativeMinutes).toBe(5);
   });
 
-  it('過去の reset は 0 分にクランプする (負値の表示を防ぐ)', () => {
+  it('過去の reset は 0 分に丸める (負値の表示を防ぐ)', () => {
     const result = formatRateLimitReset(nowUnix - 60, now);
 
     expect(result.relativeMinutes).toBe(0);
