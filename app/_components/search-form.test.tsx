@@ -26,7 +26,7 @@ describe('<SearchForm />', () => {
     expect(input.getAttribute('name')).toBe('q');
   });
 
-  it('name="q" で submit して URL を /?q=... にする', () => {
+  it('input に name="q" を付与する (URL クエリのキーを q にするため)', () => {
     render(<SearchForm />);
 
     const input = screen.getByLabelText('リポジトリを検索');
