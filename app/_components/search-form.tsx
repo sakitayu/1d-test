@@ -1,6 +1,6 @@
 // ネイティブ HTML の `<form action="/" method="get">` を使うことで、
 // JavaScript 無効環境でもブラウザが /?q=... へ遷移できる。
-// progressive enhancement を優先し、React は機能の前提にしない。
+// HTML 単体で機能を完結させ、React は体験を上乗せするレイヤーとして使う。
 
 import { SearchIcon } from '@primer/octicons-react';
 
