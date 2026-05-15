@@ -61,6 +61,10 @@ export default function RootLayout({
               className="underline transition hover:text-zinc-700 dark:hover:text-zinc-300"
             >
               GitHub
+              {/* 新規タブで開くことを SR ユーザーに通知。target="_blank" は視覚的には
+                  伝わらないため sr-only テキストで補強する (WAI-ARIA Authoring Practices
+                  で推奨)。詳細ページの「GitHub で開く」リンクと a11y の扱いを揃える。 */}
+              <span className="sr-only">(新しいタブで開く)</span>
             </a>
           </p>
         </footer>
